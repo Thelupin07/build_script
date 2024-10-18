@@ -1,9 +1,4 @@
-#!/bin/bash
 
-# Remove any existing local manifest directory (clean start)
-rm -rf .repo/local_manifests/
-
-# Initialize the ROM manifest using RisingTechOSS repository (branch 'fourteen')
 mkdir ten
 
 repo init -u https://github.com/TenX-OS/manifest.git -b fourteen --git-lfs
