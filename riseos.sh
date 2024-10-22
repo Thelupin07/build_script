@@ -1,10 +1,11 @@
 
 mkdir ten
 
-repo init -u https://github.com/TenX-OS/manifest.git -b fourteen --git-lfs
+repo init -u https://github.com/PixelOS-AOSP/manifest.git -b fourteen --git-lfs
 
 # Synchronize the repository using the custom 'resync.sh' script
-repo sync
+
+/opt/crave/resync.sh
 
 git clone https://github.com/PixysOS-Devices/device_nothing_Spacewar.git device/nothing/Spacewar
 
