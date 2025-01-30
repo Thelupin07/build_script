@@ -1,20 +1,25 @@
+#!/usr/bin/env bash
 
-mkdir ten
+# Remove existing local_manifests
+rm -rf .repo/local_manifests/
 
-repo init -u https://github.com/PixelOS-AOSP/manifest.git -b fourteen --git-lfs
+# Initialize git lfs
+git lfs install
 
-# Synchronize the repository using the custom 'resync.sh' script
+# Initialize the manifest
+repo init --no-repo-verify --git-lfs --depth=1 -u https://github.com/Trijal08/mistifest.git -b 15
+echo "====================="
+echo "= Repo init success ="
+echo "====================="
 
-/opt/crave/resync.sh
+# Clone local manifests
+git clone --depth=1 https://github.com/Trijal08/local_manifests.git -b Mist_OS-15.1-Spacewar .repo/local_manifests
+echo "================================="
+echo "= Local manifests clone success ="
+echo "================================="
 
-git clone https://github.com/PixysOS-Devices/device_nothing_Spacewar.git device/nothing/Spacewar
-
-git clone https://github.com/PixysOS-Devices/vendor_nothing_Spacewar vendor/nothing/Spacewar
-
-git clone https://github.com/BrainKub/android_kernel_nothing_sm7325 kernel/nothing/sm7325
-
-git clone https://github.com/PixysOS-Devices/packages_apps_PixysGlyph packages/apps/PixysGlyph
-
-git clone https://gitlab.com/PixysOS/vendor_nothing_camera -b fourteen vendor/nothing/camera
-
-git clone https://gitlab.com/PixysOS-fourteen/vendor_nothing_Spacewar_radio vendor/nothing/Spacewar
+# Sync repositories (now let that sync in)
+/opt/crave/resync.sh || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j66
+echo "================"
+echo "= Sync success ="
+echo "================"
